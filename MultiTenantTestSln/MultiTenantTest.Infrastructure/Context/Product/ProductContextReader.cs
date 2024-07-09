@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MultiTenantTest.Domain.Models.Products.Reader;
+using MultiTenantTest.Domain.Entities.Products.Reader;
 
 namespace MultiTenantTest.Infrastructure.Context.Product
 {

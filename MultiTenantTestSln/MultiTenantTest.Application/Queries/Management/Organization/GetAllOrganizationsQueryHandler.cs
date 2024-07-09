@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Application.Shared.Management.Organization;
+using MultiTenantTest.Application.DTOs.Management.Organization;
 
 namespace MultiTenantTest.Application.Queries.Management.Organization
 {
     public class GetAllOrganizationsQueryHandler : IRequestHandler<GetAllOrganizationsQuery, List<OrganizationDto>>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.Organization> repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.Organization> repository;
 
-        public GetAllOrganizationsQueryHandler(IRepositoryGeneric<Domain.Models.Management.Organization> repository)
+        public GetAllOrganizationsQueryHandler(IRepositoryGeneric<Domain.Entities.Management.Organization> repository)
         {
             this.repository = repository;
         }

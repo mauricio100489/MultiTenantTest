@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using MultiTenantTest.Application.Exceptions;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Application.Shared.Management.User;
+using MultiTenantTest.Application.DTOs.Management.User;
 
 namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 {
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, UserDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.User> _repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.User> _repository;
 
-        public DeleteUserCommandHandler(IRepositoryGeneric<Domain.Models.Management.User> repository)
+        public DeleteUserCommandHandler(IRepositoryGeneric<Domain.Entities.Management.User> repository)
         {
             _repository = repository;
         }

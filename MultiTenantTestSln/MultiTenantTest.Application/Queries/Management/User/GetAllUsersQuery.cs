@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MultiTenantTest.Application.Shared.Management.User;
+using MultiTenantTest.Application.DTOs.Management.User;
 
 namespace MultiTenantTest.Application.Queries.Management.User
 {

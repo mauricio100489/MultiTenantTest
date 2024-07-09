@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Domain.Models.Products.Reader;
+using MultiTenantTest.Domain.Entities.Products.Reader;
+using MultiTenantTest.Domain.Models.Responses;
 
 namespace MultiTenantTest.Application.Queries.ProductsDatabase.Product
 {

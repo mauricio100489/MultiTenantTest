@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using MultiTenantTest.Application.Exceptions;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Application.Shared.Management.Organization;
+using MultiTenantTest.Application.DTOs.Management.Organization;
 
 namespace MultiTenantTest.Application.Queries.Management.Organization
 {
     public class GetOrganizationByIdQueryHandler : IRequestHandler<GetOrganizationByIdQuery, OrganizationDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.Organization> _repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.Organization> _repository;
 
-        public GetOrganizationByIdQueryHandler(IRepositoryGeneric<Domain.Models.Management.Organization> repository)
+        public GetOrganizationByIdQueryHandler(IRepositoryGeneric<Domain.Entities.Management.Organization> repository)
         {
             _repository = repository;
         }

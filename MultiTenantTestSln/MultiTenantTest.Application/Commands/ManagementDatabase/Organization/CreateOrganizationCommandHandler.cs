@@ -1,17 +1,18 @@
 ﻿using MediatR;
 using MultiTenantTest.Application.Repositories.Configuration;
 using MultiTenantTest.Application.Services;
-using MultiTenantTest.Application.Shared.Management.Organization;
+using MultiTenantTest.Application.DTOs.Management.Organization;
+using MultiTenantTest.Domain.Entities.Management;
 
 namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 {
     public class CreateOrganizationCommandHandler : IRequestHandler<CreateOrganizationCommand, OrganizationDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.Organization> _repository;
+        private readonly IRepositoryGeneric<Organization> _repository;
         private readonly IDatabaseCreationService databaseCreationService;
 
         public CreateOrganizationCommandHandler(
-            IRepositoryGeneric<Domain.Models.Management.Organization> repository,
+            IRepositoryGeneric<Organization> repository,
             IDatabaseCreationService databaseCreationService)
         {
             _repository = repository;
@@ -20,7 +21,7 @@ namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 
         public async Task<OrganizationDto> Handle(CreateOrganizationCommand request, CancellationToken cancellationToken)
         {
-            var organization = new Domain.Models.Management.Organization
+            var organization = new Organization
             {
                 Name = request.Name,
                 CreatedDateTimeOffset = DateTimeOffset.UtcNow,

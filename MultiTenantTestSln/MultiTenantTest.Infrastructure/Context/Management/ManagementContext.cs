@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MultiTenantTest.Domain.Models.Management;
+using MultiTenantTest.Domain.Entities.Management;
 
 namespace MultiTenantTest.Infrastructure.Context.Management
 {
@@ -20,8 +20,10 @@ namespace MultiTenantTest.Infrastructure.Context.Management
             optionsBuilder.UseSqlServer(connectionString);
         }
 
+        // DbSets
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

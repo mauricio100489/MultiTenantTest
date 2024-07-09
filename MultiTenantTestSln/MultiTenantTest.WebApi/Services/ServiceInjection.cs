@@ -5,42 +5,51 @@ using MultiTenantTest.Application.Queries.ProductsDatabase.Product;
 using MultiTenantTest.Application.Repositories;
 using MultiTenantTest.Application.Repositories.Configuration;
 using MultiTenantTest.Application.Services;
-using MultiTenantTest.Domain.Models.Management;
-using MultiTenantTest.Domain.Models.Products.Reader;
-using MultiTenantTest.Domain.Models.Products.Writer;
+using MultiTenantTest.Domain.Entities.Management;
+using MultiTenantTest.Domain.Entities.Products.Reader;
+using MultiTenantTest.Domain.Entities.Products.Writer;
 using System.Text;
 
 namespace MultiTenantTest.WebAPI.Services
 {
     public static class ServiceInjection
     {
-        public static void AddCustomInjections(this IServiceCollection services)
+        public static void AddCustomInjections(this IServiceCollection services, IConfiguration configuration)
         {
-
-            AddCustomServices(services);
+            AddCurtomService(services);
+            AddJwtAuth(services, configuration);
             AddCustomRepositories(services);
             AddCommands(services);
             AddQueries(services);
         }
 
-        public static IServiceCollection AddCustomServices(IServiceCollection services)
+        public static IServiceCollection AddCurtomService(IServiceCollection services)
         {
             services.AddScoped<IDatabaseCreationService, DatabaseCreationService>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            ValidateIssuer = true,
-                            ValidateAudience = true,
-                            ValidateLifetime = true,
-                            ValidateIssuerSigningKey = true,
-                            ValidIssuer = "yourissuer",
-                            ValidAudience = "youraudience",
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
-                        };
-                    });
-            //services.AddScoped<IMyCustomService, MyCustomService>();
+            services.AddScoped<ILoginService, LoginService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddJwtAuth(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                };
+            });
 
             return services;
         }

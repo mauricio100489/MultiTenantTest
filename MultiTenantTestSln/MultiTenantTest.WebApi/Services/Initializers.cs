@@ -10,11 +10,12 @@ namespace MultiTenantTest.WebAPI.Services
 
             using var scope = app.ApplicationServices.CreateScope();
             var services = scope.ServiceProvider;
-            await IMCInitializer(services, deleteDatabase);
+            await DbInitializer(services, deleteDatabase);
+
             return app;
         }
 
-        public static async Task IMCInitializer(IServiceProvider serviceProvider, bool deleteDatabase = false)
+        public static async Task DbInitializer(IServiceProvider serviceProvider, bool deleteDatabase = false)
         {
             try
             {

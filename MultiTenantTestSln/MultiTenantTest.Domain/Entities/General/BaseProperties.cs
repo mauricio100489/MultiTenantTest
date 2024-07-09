@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MultiTenantTest.Domain.Models.General
+namespace MultiTenantTest.Domain.Entities.General
 {
     public class BaseProperties
     {

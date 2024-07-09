@@ -2,7 +2,7 @@
 using MultiTenantTest.Application.Exceptions;
 using MultiTenantTest.Application.Repositories.Configuration;
 using Microsoft.EntityFrameworkCore;
-using MultiTenantTest.Application.Shared.Management.User;
+using MultiTenantTest.Application.DTOs.Management.User;
 
 namespace MultiTenantTest.Application.Queries.Management.User
 {
@@ -12,9 +12,9 @@ namespace MultiTenantTest.Application.Queries.Management.User
     }
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.User> _repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.User> _repository;
 
-        public GetUserByIdQueryHandler(IRepositoryGeneric<Domain.Models.Management.User> repository)
+        public GetUserByIdQueryHandler(IRepositoryGeneric<Domain.Entities.Management.User> repository)
         {
             _repository = repository;
         }

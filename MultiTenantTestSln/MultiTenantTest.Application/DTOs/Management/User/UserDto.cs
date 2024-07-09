@@ -1,4 +1,4 @@
-﻿namespace MultiTenantTest.Application.Shared.Management.User
+﻿namespace MultiTenantTest.Application.DTOs.Management.User
 {
     public class UserDto
     {

@@ -1,4 +1,4 @@
-﻿namespace MultiTenantTest.Application.Shared.Management.Organization
+﻿namespace MultiTenantTest.Application.DTOs.Management.Organization
 {
     public class OrganizationDto
     {

@@ -1,7 +1,7 @@
-﻿using MultiTenantTest.Domain.Models.General;
+﻿using MultiTenantTest.Domain.Entities.General;
 using System.ComponentModel.DataAnnotations;
 
-namespace MultiTenantTest.Domain.Models.Products.Writer
+namespace MultiTenantTest.Domain.Entities.Products.Writer
 {
     public class ProductW : BaseProperties
     {

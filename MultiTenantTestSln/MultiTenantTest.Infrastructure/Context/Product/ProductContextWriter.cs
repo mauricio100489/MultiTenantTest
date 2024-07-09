@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MultiTenantTest.Domain.Models.Products.Writer;
+using MultiTenantTest.Domain.Entities.Products.Writer;
 
 namespace MultiTenantTest.Infrastructure.Context.Product
 {

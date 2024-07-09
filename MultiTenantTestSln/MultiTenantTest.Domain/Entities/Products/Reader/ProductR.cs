@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MultiTenantTest.Domain.Models.Products.Reader
+namespace MultiTenantTest.Domain.Entities.Products.Reader
 {
     public class ProductR
     {

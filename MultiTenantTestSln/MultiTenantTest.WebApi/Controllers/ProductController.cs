@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MultiTenantTest.Application.Commands.ProductsDatabase.Product.Writer;
 using MultiTenantTest.Application.Queries.ProductsDatabase.Product;
+using MultiTenantTest.Domain.Entities.Products.Reader;
+using MultiTenantTest.Domain.Models.Responses;
 
 namespace MultiTenantTest.WebAPI.Controllers
 {
     [ApiController]
     [Route("{tenant}/api/products")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly CreateProductCommandHandler _createProductHandler;
@@ -19,18 +23,33 @@ namespace MultiTenantTest.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(CreateProductCommand command)
+        public async Task<ServiceResult<bool>> CreateProduct(CreateProductCommand command)
         {
-            await _createProductHandler.Handle(command);
-            return Ok();
+            try
+            {
+                await _createProductHandler.Handle(command);
+                return ServiceResult<bool>.SuccessResult(true);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<bool>.ErrorResult(new[] { $"{ex.Message}" });
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<ServiceResult<List<ProductR>>> GetAllProducts()
         {
-            var query = new GetAllProductsQuery();
-            var products = await _getAllProductsHandler.Handle(query);
-            return Ok(products);
+            try
+            {
+                var query = new GetAllProductsQuery();
+                var products = await _getAllProductsHandler.Handle(query);
+                
+                return ServiceResult<List<ProductR>>.SuccessResult(products);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<List<ProductR>>.ErrorResult(new[] { $"{ex.Message}" });
+            }
         }
     }
 }

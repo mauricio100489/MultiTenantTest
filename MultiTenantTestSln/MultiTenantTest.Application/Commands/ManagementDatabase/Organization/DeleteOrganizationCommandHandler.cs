@@ -2,17 +2,17 @@
 using MultiTenantTest.Application.Exceptions;
 using MultiTenantTest.Application.Repositories.Configuration;
 using MultiTenantTest.Application.Services;
-using MultiTenantTest.Application.Shared.Management.Organization;
+using MultiTenantTest.Application.DTOs.Management.Organization;
 
 namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 {
     public class DeleteOrganizationCommandHandler : IRequestHandler<DeleteOrganizationCommand, OrganizationDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.Organization> _repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.Organization> _repository;
         private readonly IDatabaseCreationService databaseCreationService;
 
         public DeleteOrganizationCommandHandler(
-            IRepositoryGeneric<Domain.Models.Management.Organization> repository,
+            IRepositoryGeneric<Domain.Entities.Management.Organization> repository,
             IDatabaseCreationService databaseCreationService)
         {
             _repository = repository;

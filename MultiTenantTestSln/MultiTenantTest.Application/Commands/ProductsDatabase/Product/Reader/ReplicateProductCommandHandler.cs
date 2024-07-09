@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Domain.Models.Products.Reader;
+using MultiTenantTest.Domain.Entities.Products.Reader;
 
 namespace MultiTenantTest.Application.Commands.ProductsDatabase.Product.Reader
 {

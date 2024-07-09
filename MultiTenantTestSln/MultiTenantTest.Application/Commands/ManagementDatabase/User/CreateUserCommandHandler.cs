@@ -1,17 +1,17 @@
 ﻿using MediatR;
 using MultiTenantTest.Application.Repositories.Configuration;
-using MultiTenantTest.Application.Shared.Management.User;
-using MultiTenantTest.Domain.Models.Management;
+using MultiTenantTest.Application.DTOs.Management.User;
+using MultiTenantTest.Domain.Entities.Management;
 
 namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.User> _repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.User> _repository;
         private readonly IRepositoryGeneric<Organization> organizationRepository;
 
-        public CreateUserCommandHandler(IRepositoryGeneric<Domain.Models.Management.User> repository,
-            IRepositoryGeneric<Domain.Models.Management.Organization> organizationRepository)
+        public CreateUserCommandHandler(IRepositoryGeneric<Domain.Entities.Management.User> repository,
+            IRepositoryGeneric<Domain.Entities.Management.Organization> organizationRepository)
         {
             _repository = repository;
             this.organizationRepository = organizationRepository;
@@ -19,7 +19,7 @@ namespace MultiTenantTest.Application.Commands.ManagementDatabase.User
 
         public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var User = new Domain.Models.Management.User
+            var User = new Domain.Entities.Management.User
             {
                 Email = request.Email,
                 OrganizationId = request.OrganizationId,

@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using MultiTenantTest.Application.Commands.ManagementDatabase.User;
 using MultiTenantTest.Application.Exceptions;
 using MultiTenantTest.Application.Queries.Management.User;
-using MultiTenantTest.Application.Shared.Management.User;
+using MultiTenantTest.Application.DTOs.Management.User;
+using MultiTenantTest.Domain.Models.Responses;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MultiTenantTest.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -19,54 +22,64 @@ namespace MultiTenantTest.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<UserDto>>> Get()
+        public async Task<ServiceResult<List<UserDto>>> Get()
         {
-            var Users = await _mediator.Send(new GetAllUsersQuery());
-            return Ok(Users);
+            try
+            {
+                var Users = await _mediator.Send(new GetAllUsersQuery());
+
+                return ServiceResult<List<UserDto>>.SuccessResult(Users);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<List<UserDto>>.ErrorResult(new[] { $"{ex.Message}" });
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(int id)
+        public async Task<ServiceResult<UserDto>> GetUser(int id)
         {
             try
             {
                 var query = new GetUserByIdQuery { UserId = id };
                 var User = await _mediator.Send(query);
-                return Ok(User);
+                
+                return ServiceResult<UserDto>.SuccessResult(User);
             }
-            catch (NotFoundException ex)
+            catch(Exception ex)
             {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return ServiceResult<UserDto>.ErrorResult(new[] { $"{ex.Message}" });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(CreateUserCommand command)
+        public async Task<ServiceResult<UserDto>> CreateUser(CreateUserCommand command)
         {
-            var UserDto = await _mediator.Send(command);
-            return Ok(UserDto);
+            try
+            {
+                var UserDto = await _mediator.Send(command);
+
+                return ServiceResult<UserDto>.SuccessResult(UserDto);
+            }
+            catch (Exception ex)
+            {
+                return ServiceResult<UserDto>.ErrorResult(new[] { $"{ex.Message}" });
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserDto>> DeleteUser(int id)
+        public async Task<ServiceResult<UserDto>> DeleteUser(int id)
         {
             try
             {
                 var command = new DeleteUserCommand { UserId = id };
                 var UserDto = await _mediator.Send(command);
-                return Ok(UserDto);
-            }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
+
+                return ServiceResult<UserDto>.SuccessResult(UserDto);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return ServiceResult<UserDto>.ErrorResult(new[] { $"{ex.Message}" });
             }
         }
     }

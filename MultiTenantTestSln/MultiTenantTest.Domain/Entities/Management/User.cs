@@ -1,6 +1,6 @@
-﻿using MultiTenantTest.Domain.Models.General;
+﻿using MultiTenantTest.Domain.Entities.General;
 
-namespace MultiTenantTest.Domain.Models.Management
+namespace MultiTenantTest.Domain.Entities.Management
 {
     public class User : BaseProperties
     {

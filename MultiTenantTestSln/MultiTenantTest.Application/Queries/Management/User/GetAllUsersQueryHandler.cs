@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using MultiTenantTest.Application.Repositories.Configuration;
 using Microsoft.EntityFrameworkCore;
-using MultiTenantTest.Application.Shared.Management.User;
+using MultiTenantTest.Application.DTOs.Management.User;
 
 namespace MultiTenantTest.Application.Queries.Management.User
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserDto>>
     {
-        private readonly IRepositoryGeneric<Domain.Models.Management.User> repository;
+        private readonly IRepositoryGeneric<Domain.Entities.Management.User> repository;
 
-        public GetAllUsersQueryHandler(IRepositoryGeneric<Domain.Models.Management.User> repository)
+        public GetAllUsersQueryHandler(IRepositoryGeneric<Domain.Entities.Management.User> repository)
         {
             this.repository = repository;
         }
