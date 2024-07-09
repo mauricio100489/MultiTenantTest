@@ -44,7 +44,7 @@ namespace MultiTenantTest.Application.Services
                                     .FirstOrDefaultAsync();
 
                 if (user == null)
-                    return ServiceResult<LoginResponseDto>.ErrorResult(new[] { $"Credenciales Incorrectas." });
+                    return ServiceResult<LoginResponseDto>.ErrorResult(new[] { $"Invalid Credentials." });
 
                 LoginResponseDto loginResponse = new()
                 {
